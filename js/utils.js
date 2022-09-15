@@ -20,3 +20,7 @@ export const render = (container, element, position = RenderPosition.BEFOREEND, 
             break
     }
 }
+
+export function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+}
