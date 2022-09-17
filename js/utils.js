@@ -21,6 +21,10 @@ export const render = (container, element, position = RenderPosition.BEFOREEND, 
     }
 }
 
+export const setElementVisibility = (element, visibility) => {
+    element.classList.toggle('hidden-block', !visibility)
+}
+
 export function generateId() {
     return Math.random().toString(36).substr(2, 9);
 }

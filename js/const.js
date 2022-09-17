@@ -38,3 +38,13 @@ export const Text = {
 };
 
 export const STATE_EMPTY = 'empty'
+
+export const EventTypes = {
+    click: 'click',
+    keydown: 'keydown',
+}
+
+export const Key = {
+    ENTER: 13,
+    ESCAPE: 27,
+}

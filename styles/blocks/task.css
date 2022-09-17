@@ -146,6 +146,7 @@
 }
 
 .task--input {
+    font-family: var(--main-font);
     display: none;
     height: 24px;
     width: 100%;

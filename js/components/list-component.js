@@ -39,7 +39,7 @@ export class ListComponent extends AbstractComponent {
     }
 
     _removeTasks() {
-        this.getElement().querySelector('.taskboard__list').innerHTML = '';
+        this.getElement().querySelector('.taskboard__list').innerHTML = ''
     }
 
     _renderEmptyComponent(title) {
@@ -47,7 +47,6 @@ export class ListComponent extends AbstractComponent {
         const emptyTaskElement = emptyTaskComponent.getElement()
 
         emptyTaskElement.classList.toggle('hidden-block')
-
         render(this.getElement().querySelector('.taskboard__list'), emptyTaskElement, RenderPosition.BEFOREEND)
     }
 }
