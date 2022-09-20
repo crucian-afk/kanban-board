@@ -1,4 +1,4 @@
-import {RenderPosition} from "./const.js"
+import {HIDE_BLOCK_CLASS, RenderPosition} from "./const.js"
 
 export const createElement = (template) => {
     const element = document.createElement('div')
@@ -22,7 +22,7 @@ export const render = (container, element, position = RenderPosition.BEFOREEND, 
 }
 
 export const setElementVisibility = (element, visibility) => {
-    element.classList.toggle('hidden-block', !visibility)
+    element.classList.toggle(HIDE_BLOCK_CLASS, !visibility)
 }
 
 export function generateId() {

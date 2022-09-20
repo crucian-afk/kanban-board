@@ -1,4 +1,5 @@
 import AbstractComponent from "./abstract-component.js";
+import {submit} from "../const.js";
 
 export class FormComponent extends AbstractComponent {
     constructor(taskService, label) {
@@ -12,7 +13,7 @@ export class FormComponent extends AbstractComponent {
             <form class="add-task__form" aria-label="Add task form">
             <div class="add-task__input-wrapper">
               <label for="add-task">${this._label}</label>
-              <input type="text" name="task-name" id="add-task" placeholder="Task name..." required>
+              <input type="text" name="task-name" id="add-task" placeholder="Task name..." required minlength="2">
             </div>
             <button class="add-task__button button" type="submit">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +32,7 @@ export class FormComponent extends AbstractComponent {
     }
 
     _addEventListeners() {
-        this.getElement().addEventListener('submit', this.formSubmitHandler.bind(this))
+        this.getElement().addEventListener(submit, this.formSubmitHandler.bind(this))
     }
 
     formSubmitHandler(evt) {

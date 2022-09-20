@@ -10,7 +10,7 @@ export class EmptyTaskComponent extends AbstractComponent {
 
     _getTemplate() {
         return (`
-            <div class="taskboard__item task task--${this._taskStatus} task--${this._status}">-->
+            <div class="taskboard__item task task--${this._taskStatus} task--${this._status}">
                 <p>${this._title}</p>
             </div>
         `)

@@ -1,8 +1,7 @@
 import AbstractComponent from "./abstract-component.js";
-import {EventTypes, Key, StateActions} from '../const.js'
+import {click, dragend, dragstart, Key, keydown, StateActions} from '../const.js'
 import {setElementVisibility} from "../utils.js";
 
-const {click, keydown} = EventTypes
 
 export class TaskComponent extends AbstractComponent {
     constructor(taskService, task) {
@@ -18,13 +17,14 @@ export class TaskComponent extends AbstractComponent {
                   <p class="task--view">${this._task.title}</p>
                   <input type="text" class="task--input" />
                 </div>
-                <button aria-label="Изменить" class="task__edit" type="button"></button>
+                <button aria-label="Change" class="task__edit" type="button"></button>
             </div>
         `)
     }
 
     _afterCreateElement() {
         this._makeTaskEditable()
+        this._makeTaskDraggable()
 
         window.addEventListener(StateActions.ELEMENT_EDITED, (evt) => {
             const isDisplayBlock = (evt.detail.id === undefined) || (evt.detail.id === this._task.id)
@@ -51,13 +51,19 @@ export class TaskComponent extends AbstractComponent {
             if (evt.keyCode === Key.ENTER && evt.shiftKey === false && evt.ctrlKey === false && evt.altKey === false) {
                 this._setTaskViewMode()
                 this._saveTask(taskInputElement.value)
-                taskTitleElement.innerText = this._task.title
-                // TODO maybe delete it ^
             } else if (evt.keyCode === Key.ESCAPE) {
                 this._setTaskViewMode()
                 taskTitleElement.innerText = this._task.title
             }
         })
+    }
+
+    _makeTaskDraggable() {
+        this._taskService.setDraggedElement(null)
+
+        this.getElement().setAttribute('draggable', true)
+        this.getElement().addEventListener(dragstart, this._dragstartHandler.bind(this))
+        this.getElement().addEventListener(dragend, this._dragendHandler.bind(this))
     }
 
     _saveTask(newTitle) {
@@ -79,5 +85,25 @@ export class TaskComponent extends AbstractComponent {
             this._taskService.startTaskEditing(this._task)
             taskInputElement.focus()
         }
+    }
+
+    _dragstartHandler() {
+        const draggedElement = this.getElement()
+        draggedElement.classList.add('task--dragged')
+        this._taskService.setDraggedElement(draggedElement)
+    }
+
+    _dragendHandler() {
+        const prevTaskId = this.getElement().previousElementSibling ? this.getElement().previousElementSibling.dataset.id : undefined
+        const draggedElement = this._taskService.getDraggedElement()
+
+        draggedElement.classList.remove('task--dragged')
+
+        if(draggedElement.dataset.status) {
+            this._task.status = draggedElement.dataset.status
+            this._taskService.updatePosition(this._task, prevTaskId)
+        }
+
+        this._taskService.setDraggedElement(null)
     }
 }
