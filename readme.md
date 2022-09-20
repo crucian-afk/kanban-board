@@ -5,7 +5,7 @@ CRUD app, you can add new tasks and edit cards with drag'n'drop in other categor
 Created with vanilla Javascript, HTML (semantic + a11y) and CSS.
 Bundled by ViteJS (create Vite app)
 
-### You can see live demo here /* LINK */
+### You can see live demo [here](https://kanban-board-sigma.vercel.app/) (https://kanban-board-sigma.vercel.app/)
 
 ### Also, you can download project and run it local with:
 ```
